@@ -1,0 +1,104 @@
+<UserControl x:Class="Udjat.Fans.FansPage"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:dashboard="clr-namespace:Udjat.Dashboard">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Udjat;component/Dashboard/PanelTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- A fan that turns: its name, the speed, a small chart of the last minutes and the range. -->
+            <DataTemplate x:Key="FanCard">
+                <Border Style="{StaticResource PanelCard}" Padding="16,14,16,12">
+                    <StackPanel>
+                        <DockPanel>
+                            <Border DockPanel.Dock="Right" Style="{StaticResource Badge}">
+                                <TextBlock Text="Turning" FontSize="11" Foreground="{DynamicResource AccentBrightBrush}" />
+                            </Border>
+                            <Viewbox Width="18" Height="18" DockPanel.Dock="Left">
+                                <Canvas Width="24" Height="24">
+                                    <Path Data="{StaticResource NavFan}" Stroke="{DynamicResource AccentBrightBrush}" StrokeThickness="1.7"
+                                          StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                                </Canvas>
+                            </Viewbox>
+                            <TextBlock Text="{Binding Info.Name}" Margin="8,0,8,0" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+                        </DockPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,2">
+                            <TextBlock Text="{Binding Info.RpmText}" FontSize="30" FontWeight="SemiBold" />
+                            <TextBlock Text="RPM" FontSize="13" Margin="6,0,0,5" VerticalAlignment="Bottom"
+                                       Foreground="{DynamicResource TextSecondaryBrush}" />
+                        </StackPanel>
+
+                        <dashboard:Sparkline Height="46" Series="{Binding Series}"
+                                             TemperatureBrush="{DynamicResource NormalBrush}" LoadBrush="{DynamicResource AccentBrush}" />
+                        <TextBlock Text="{Binding Info.RangeText}" Style="{StaticResource SmallText}" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+            </DataTemplate>
+
+            <!-- A fan that does not turn: only its name, in a dashed outline. -->
+            <DataTemplate x:Key="StoppedChip">
+                <Grid Margin="0,0,8,6">
+                    <Rectangle RadiusX="11" RadiusY="11" StrokeThickness="1" StrokeDashArray="3 3" Stroke="{DynamicResource PanelBorderBrush}" />
+                    <StackPanel Orientation="Horizontal" Margin="10,3">
+                        <Viewbox Width="13" Height="13">
+                            <Canvas Width="24" Height="24">
+                                <Path Data="{StaticResource NavFan}" Stroke="{DynamicResource TextSecondaryBrush}" StrokeThickness="1.8"
+                                      StrokeLineJoin="Round" />
+                            </Canvas>
+                        </Viewbox>
+                        <TextBlock Text="{Binding}" Margin="6,0,0,0" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+
+            <!-- The fans of one device. -->
+            <DataTemplate x:Key="FanGroup">
+                <StackPanel Margin="4,0,4,16">
+                    <DockPanel Margin="0,0,0,6">
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding Group.CountText}" FontSize="12" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Text="{Binding Group.Title}" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Group.Subtitle}" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                    </DockPanel>
+
+                    <ItemsControl ItemsSource="{Binding Cards}" ItemTemplate="{StaticResource FanCard}" Visibility="{Binding CardsVisibility}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                    <TextBlock Text="{Binding Group.Note}" Style="{StaticResource SmallText}" FontSize="12" Margin="6,2,0,6"
+                               Visibility="{Binding NoteVisibility}" />
+
+                    <DockPanel Margin="6,10,0,0" Visibility="{Binding StoppedVisibility}">
+                        <TextBlock DockPanel.Dock="Left" Text="Stopped or not connected" FontSize="12" Margin="0,3,12,0"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <ItemsControl ItemsSource="{Binding Group.Stopped}" ItemTemplate="{StaticResource StoppedChip}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </DockPanel>
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding Fans}" ItemTemplate="{StaticResource FanGroup}" />
+            <TextBlock Text="{Binding FansEmptyText}" TextWrapping="Wrap" Margin="6,8,6,0" Style="{StaticResource SmallText}" FontSize="13"
+                       Visibility="{Binding FansEmptyVisibility}" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

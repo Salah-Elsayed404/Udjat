@@ -1,0 +1,215 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Udjat.Dashboard">
+
+    <!-- How a dashboard panel looks. A panel is a PanelView: its Info (what to say) and its Series (the small chart). -->
+
+    <Style x:Key="PanelCard" TargetType="Border">
+        <Setter Property="Background" Value="{DynamicResource PanelBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PanelBorderBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="14" />
+        <Setter Property="Margin" Value="6" />
+    </Style>
+
+    <Style x:Key="PanelTitle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style x:Key="SmallText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+    </Style>
+
+    <!-- The big number. A temperature is coloured by its level even when normal; memory is plain text until it is not. -->
+    <Style x:Key="BigNumber" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Info.PrimaryIsTemperature}" Value="True" />
+                    <Condition Binding="{Binding Info.PrimaryLevel}" Value="Normal" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource NormalBrush}" />
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding Info.PrimaryLevel}" Value="Warning">
+                <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Info.PrimaryLevel}" Value="Critical">
+                <Setter Property="Foreground" Value="{DynamicResource CriticalBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SecondaryNumber" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource NormalBrush}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Info.SecondaryLevel}" Value="Warning">
+                <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Info.SecondaryLevel}" Value="Critical">
+                <Setter Property="Foreground" Value="{DynamicResource CriticalBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- The word for a level, so colour is never the only signal. -->
+    <Style x:Key="LevelWord" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Info.LevelText}" Value="CRITICAL">
+                <Setter Property="Foreground" Value="{DynamicResource CriticalBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <ControlTemplate x:Key="BarTemplate" TargetType="ProgressBar">
+        <Grid>
+            <Border x:Name="PART_Track" Background="{DynamicResource TrackBrush}" CornerRadius="3" />
+            <Border x:Name="PART_Indicator" Background="{TemplateBinding Foreground}" CornerRadius="3" HorizontalAlignment="Left" />
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="VideoMemoryBar" TargetType="ProgressBar">
+        <Setter Property="Minimum" Value="0" />
+        <Setter Property="Maximum" Value="100" />
+        <Setter Property="Height" Value="6" />
+        <Setter Property="Template" Value="{StaticResource BarTemplate}" />
+        <Setter Property="Foreground" Value="{DynamicResource VramBrush}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Info.BarLevel}" Value="Warning">
+                <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Info.BarLevel}" Value="Critical">
+                <Setter Property="Foreground" Value="{DynamicResource CriticalBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriveBar" TargetType="ProgressBar">
+        <Setter Property="Minimum" Value="0" />
+        <Setter Property="Maximum" Value="100" />
+        <Setter Property="Height" Value="6" />
+        <Setter Property="Template" Value="{StaticResource BarTemplate}" />
+        <Setter Property="Foreground" Value="{DynamicResource NormalBrush}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Level}" Value="Warning">
+                <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Level}" Value="Critical">
+                <Setter Property="Foreground" Value="{DynamicResource CriticalBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DriveValue" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{DynamicResource NormalBrush}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Level}" Value="Warning">
+                <Setter Property="Foreground" Value="{DynamicResource WarningBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Level}" Value="Critical">
+                <Setter Property="Foreground" Value="{DynamicResource CriticalBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Processor, graphics card and memory share one layout: title, ring and big number, optional bar and fans, small chart. -->
+    <DataTemplate x:Key="DevicePanel">
+        <Border Style="{StaticResource PanelCard}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" MinHeight="110" />
+                </Grid.RowDefinitions>
+
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding Info.Subtitle}" Style="{StaticResource SmallText}" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Info.Title}" Style="{StaticResource PanelTitle}" />
+                </DockPanel>
+
+                <Grid Grid.Row="1" Margin="0,10,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <local:RingGauge Width="78" Height="78" Value="{Binding GaugeValue}" Text="{Binding Info.GaugeText}"
+                                     TrackBrush="{DynamicResource TrackBrush}" ArcBrush="{DynamicResource AccentBrush}"
+                                     TextBrush="{DynamicResource TextPrimaryBrush}" />
+
+                    <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Info.PrimaryLabel}" Style="{StaticResource SmallText}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Info.PrimaryText}" Style="{StaticResource BigNumber}" />
+                            <TextBlock Text="{Binding Info.SecondaryText}" Style="{StaticResource SecondaryNumber}"
+                                       Visibility="{Binding SecondaryVisibility}" Margin="8,0,0,4" VerticalAlignment="Bottom" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding Info.LimitsText}" Style="{StaticResource SmallText}" />
+                        <TextBlock Text="{Binding Info.LevelText}" Style="{StaticResource LevelWord}" Visibility="{Binding LevelVisibility}" />
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Grid.Row="2" Visibility="{Binding BarVisibility}" Margin="0,0,0,4">
+                    <DockPanel Margin="0,0,0,4">
+                        <TextBlock DockPanel.Dock="Right" Text="{Binding Info.BarText}" FontSize="11" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBlock Text="{Binding Info.BarLabel}" Style="{StaticResource SmallText}" />
+                    </DockPanel>
+                    <ProgressBar Value="{Binding BarPercent, Mode=OneWay}" Style="{StaticResource VideoMemoryBar}" />
+                </StackPanel>
+
+                <DockPanel Grid.Row="3" Margin="0,6,0,0" Visibility="{Binding FansVisibility}">
+                    <Button DockPanel.Dock="Right" Content="Fans ›" Style="{StaticResource LinkButton}" Margin="10,0,0,0"
+                            VerticalAlignment="Top" Command="NavigationCommands.GoToPage" CommandParameter="Fans" />
+                    <TextBlock Text="{Binding Info.FansText}" Style="{StaticResource SmallText}" TextWrapping="Wrap" />
+                </DockPanel>
+
+                <local:Sparkline Grid.Row="4" Series="{Binding Series}" Margin="0,8,0,0" Visibility="{Binding ChartVisibility}"
+                                 ShowAxes="True" TemperatureUnit="{Binding Unit}"
+                                 TemperatureBrush="{DynamicResource NormalBrush}" LoadBrush="{DynamicResource AccentBrush}"
+                                 GridBrush="{DynamicResource ChartGridBrush}" LabelBrush="{DynamicResource TextSecondaryBrush}" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+
+    <!-- Storage: one row per drive, with its temperature and a bar toward its Critical limit. -->
+    <DataTemplate x:Key="StoragePanel">
+        <Border Style="{StaticResource PanelCard}">
+            <StackPanel>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding Info.Subtitle}" Style="{StaticResource SmallText}" VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding Info.Title}" Style="{StaticResource PanelTitle}" />
+                </DockPanel>
+
+                <ItemsControl ItemsSource="{Binding Info.Drives}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,14,0,0">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Right" Text="{Binding ValueText}" Style="{StaticResource DriveValue}" />
+                                    <TextBlock Text="{Binding DisplayName}" FontSize="12" Foreground="{DynamicResource TextPrimaryBrush}"
+                                               TextTrimming="CharacterEllipsis" />
+                                </DockPanel>
+                                <ProgressBar Value="{Binding BarPercent, Mode=OneWay}" Style="{StaticResource DriveBar}" Margin="0,5,0,3" />
+                                <TextBlock Text="{Binding LimitsText}" Style="{StaticResource SmallText}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,0 +1,4 @@
+# Normalise line endings in the repository; the working copy on Windows keeps its own.
+* text=auto
+*.ico binary
+*.png binary

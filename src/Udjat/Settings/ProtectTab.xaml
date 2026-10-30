@@ -1,0 +1,36 @@
+<UserControl x:Class="Udjat.Settings.ProtectTab"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:s="clr-namespace:Udjat.Settings">
+
+    <!-- Auto-protect: close the user's own list of programs when a sensor stays at Critical. Off by default. -->
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border Style="{StaticResource Card}">
+            <StackPanel>
+                <DockPanel>
+                    <ToggleButton DockPanel.Dock="Left" Style="{StaticResource Switch}" IsChecked="{Binding Form.AutoProtectEnabled, Mode=TwoWay}" />
+                    <TextBlock Text="Close programs when a sensor stays at Critical" FontSize="15" FontWeight="SemiBold" Margin="12,0,0,0"
+                               VerticalAlignment="Center" />
+                </DockPanel>
+                <TextBlock Style="{StaticResource Hint}" Margin="0,8,0,16"
+                           Text="Off by default. When on, and a sensor stays at its Critical limit for the time below, Udjat closes the programs on your list so the machine can cool down, and tells you." />
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,16" IsEnabled="{Binding Form.AutoProtectEnabled}">
+                    <TextBlock Text="Close them after" VerticalAlignment="Center" />
+                    <TextBox Width="64" Margin="10,0" Text="{Binding Form.AutoProtectSeconds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Text="seconds at Critical" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel IsEnabled="{Binding Form.AutoProtectEnabled}">
+                    <TextBlock Text="Programs to close (one name per line, for example ollama)" Style="{StaticResource FieldLabel}" />
+                    <TextBox Height="150" AcceptsReturn="True" TextWrapping="NoWrap" VerticalScrollBarVisibility="Auto"
+                             VerticalContentAlignment="Top" Text="{Binding Form.ProcessNames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+
+                <TextBlock Style="{StaticResource Hint}" Margin="0,12,0,0" Foreground="{DynamicResource WarningBrush}"
+                           Text="Only these programs are ever closed. System programs and Udjat itself are never closed. A program that is closed loses anything it had not saved." />
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+</UserControl>

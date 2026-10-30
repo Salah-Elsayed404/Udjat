@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Udjat.Channels/Udjat.Channels.csproj" />
+    <Project Path="src/Udjat.Core/Udjat.Core.csproj" />
+    <Project Path="src/Udjat.Windows/Udjat.Windows.csproj" />
+    <Project Path="src/Udjat/Udjat.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Udjat.Tests/Udjat.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/SensorProbe/SensorProbe.csproj" />
+  </Folder>
+</Solution>

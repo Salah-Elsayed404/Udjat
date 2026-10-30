@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The channels that use the network: email (MailKit) and Telegram (HttpClient). See docs/ALERTS.md. -->
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.18.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Udjat.Core\Udjat.Core.csproj" />
+  </ItemGroup>
+
+</Project>

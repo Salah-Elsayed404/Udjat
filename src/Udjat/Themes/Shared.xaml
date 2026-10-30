@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Resources that do not change with the theme. The colours come from Dark.xaml or Light.xaml. -->
+
+    <!-- The Eye of Horus (the wedjat), drawn for Udjat in a 120 x 96 box: the shapes (brow, upper lid with the long kohl line, lower
+         lid, teardrop), the spiral (a line) and the iris. The symbol is ancient; this drawing is our own. tools/make-icon.ps1 draws
+         the same shapes for the program icon, and the tray icons use these resources too, so change them together. -->
+    <PathGeometry x:Key="EyeShapes"
+                  Figures="M 18,25 C 40,7 88,5 116,15 L 115,21 C 88,12 44,14 22,30 Z M 11,47 C 30,21 80,17 103,35 L 119,35 L 119,42 L 101,42 C 80,28 32,30 17,46 Z M 17,46 C 38,62 80,60 101,42 L 105,42 C 82,65 36,67 11,47 Z M 37,60 L 46,60 L 45,80 C 44,88 40,93 31,95 C 36,89 37,84 37,80 Z" />
+    <PathGeometry x:Key="EyeSpiral" Figures="M 70,61 C 72,74 85,81 97,80 C 109,79 112,66 103,63 C 95,60 92,70 99,72" />
+    <EllipseGeometry x:Key="EyePupil" Center="57,39" RadiusX="11" RadiusY="11" />
+
+    <!-- The program icon's look, the same in both themes: gold with depth on a lapis-blue tile with a gold rim. -->
+    <LinearGradientBrush x:Key="EyeGoldBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FFF7CC" Offset="0" />
+        <GradientStop Color="#F8D774" Offset="0.28" />
+        <GradientStop Color="#D9A21B" Offset="0.62" />
+        <GradientStop Color="#8C5A00" Offset="1" />
+    </LinearGradientBrush>
+    <RadialGradientBrush x:Key="LapisBrush" Center="0.5,0.4" GradientOrigin="0.5,0.4" RadiusX="0.75" RadiusY="0.75">
+        <GradientStop Color="#3B5FB8" Offset="0" />
+        <GradientStop Color="#16327A" Offset="0.55" />
+        <GradientStop Color="#081440" Offset="1" />
+    </RadialGradientBrush>
+    <DropShadowEffect x:Key="EyeShadow" ShadowDepth="1.5" Direction="270" BlurRadius="4" Opacity="0.75" Color="Black" />
+
+    <!-- The gold eye with a bevel: a dark copy under, a light copy over, then the gradient on top. -->
+    <DrawingGroup x:Key="EyeDrawing" ClipGeometry="M 0,0 H 120 V 96 H 0 Z">
+        <DrawingGroup Transform="1,0,0,1,0,1.5">
+            <GeometryDrawing Geometry="{StaticResource EyeSpiral}">
+                <GeometryDrawing.Pen><Pen Brush="#4A2E00" Thickness="5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" /></GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#4A2E00" Geometry="{StaticResource EyePupil}" />
+            <GeometryDrawing Brush="#4A2E00" Geometry="{StaticResource EyeShapes}" />
+        </DrawingGroup>
+        <DrawingGroup Transform="1,0,0,1,0,-0.9">
+            <GeometryDrawing Geometry="{StaticResource EyeSpiral}">
+                <GeometryDrawing.Pen><Pen Brush="#FFF9E0" Thickness="5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" /></GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF9E0" Geometry="{StaticResource EyePupil}" />
+            <GeometryDrawing Brush="#FFF9E0" Geometry="{StaticResource EyeShapes}" />
+        </DrawingGroup>
+        <GeometryDrawing Geometry="{StaticResource EyeSpiral}">
+            <GeometryDrawing.Pen><Pen Brush="{StaticResource EyeGoldBrush}" Thickness="5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" /></GeometryDrawing.Pen>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource EyeGoldBrush}" Geometry="{StaticResource EyePupil}" />
+        <GeometryDrawing Brush="{StaticResource EyeGoldBrush}" Geometry="{StaticResource EyeShapes}" />
+    </DrawingGroup>
+    <DrawingImage x:Key="EyeImage" Drawing="{StaticResource EyeDrawing}" />
+
+    <!-- Side menu icons on a 24 x 24 grid, drawn for Udjat. They are stroked, not filled, so the checked item can glow
+         the way the eye does (the same lines drawn twice, wide and faint under thin and bright). -->
+    <PathGeometry x:Key="NavOverview" Figures="M4,4 H10 V10 H4 Z M14,4 H20 V10 H14 Z M4,14 H10 V20 H4 Z M14,14 H20 V20 H14 Z" />
+
+    <GeometryGroup x:Key="NavFan">
+        <EllipseGeometry Center="12,12" RadiusX="10" RadiusY="10" />
+        <PathGeometry Figures="M11.2,10 C9.6,7.4 10.4,4.6 13,4.4 C15.6,4.2 16.4,7.4 13.6,10.6 Z" />
+        <PathGeometry Figures="M11.2,10 C9.6,7.4 10.4,4.6 13,4.4 C15.6,4.2 16.4,7.4 13.6,10.6 Z">
+            <PathGeometry.Transform><RotateTransform Angle="120" CenterX="12" CenterY="12" /></PathGeometry.Transform>
+        </PathGeometry>
+        <PathGeometry Figures="M11.2,10 C9.6,7.4 10.4,4.6 13,4.4 C15.6,4.2 16.4,7.4 13.6,10.6 Z">
+            <PathGeometry.Transform><RotateTransform Angle="240" CenterX="12" CenterY="12" /></PathGeometry.Transform>
+        </PathGeometry>
+        <EllipseGeometry Center="12,12" RadiusX="1.6" RadiusY="1.6" />
+    </GeometryGroup>
+
+    <GeometryGroup x:Key="NavSun">
+        <EllipseGeometry Center="12,12" RadiusX="4" RadiusY="4" />
+        <PathGeometry Figures="M12,2.5 V5 M12,19 V21.5 M2.5,12 H5 M19,12 H21.5 M5.3,5.3 L7,7 M17,17 L18.7,18.7 M5.3,18.7 L7,17 M17,7 L18.7,5.3" />
+    </GeometryGroup>
+
+    <PathGeometry x:Key="NavMoon" Figures="M20,14.5 A8.5,8.5 0 1 1 9.5,4 A7,7 0 0 0 20,14.5 Z" />
+
+    <GeometryGroup x:Key="NavGear">
+        <PathGeometry Figures="M 10.08,4.85 L 10.64,2.30 L 13.36,2.30 L 13.92,4.85 L 15.70,5.59 L 17.90,4.17 L 19.83,6.10 L 18.41,8.30 L 19.15,10.08 L 21.70,10.64 L 21.70,13.36 L 19.15,13.92 L 18.41,15.70 L 19.83,17.90 L 17.90,19.83 L 15.70,18.41 L 13.92,19.15 L 13.36,21.70 L 10.64,21.70 L 10.08,19.15 L 8.30,18.41 L 6.10,19.83 L 4.17,17.90 L 5.59,15.70 L 4.85,13.92 L 2.30,13.36 L 2.30,10.64 L 4.85,10.08 L 5.59,8.30 L 4.17,6.10 L 6.10,4.17 L 8.30,5.59 Z" />
+        <EllipseGeometry Center="12,12" RadiusX="3.2" RadiusY="3.2" />
+    </GeometryGroup>
+
+    <Style x:Key="NoticeButton" TargetType="Button">
+        <Setter Property="Margin" Value="8,0,0,0" />
+        <Setter Property="Padding" Value="10,3" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Frame" CornerRadius="6" BorderThickness="1" Padding="{TemplateBinding Padding}"
+                            Background="Transparent" BorderBrush="{DynamicResource NoticeBorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Frame" Property="Background" Value="{DynamicResource ButtonHoverBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

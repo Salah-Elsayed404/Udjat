@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Monitoring logic only: no UI, no network, no Windows APIs, no packages. -->
+
+</Project>

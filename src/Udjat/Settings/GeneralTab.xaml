@@ -1,0 +1,74 @@
+<UserControl x:Class="Udjat.Settings.GeneralTab"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:s="clr-namespace:Udjat.Settings">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+        <s:EnumIsConverter x:Key="EnumIs" />
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <DockPanel>
+                        <ToggleButton DockPanel.Dock="Left" Style="{StaticResource Switch}" IsChecked="{Binding Form.Autostart, Mode=TwoWay}" />
+                        <TextBlock Text="Start Udjat with Windows" FontSize="15" FontWeight="SemiBold" Margin="12,0,0,0" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,8,0,0"
+                               Text="Udjat starts hidden in the tray when you sign in, without asking for permission each time. Saving this setting adds or removes a Windows scheduled task named Udjat. It works when Udjat is installed with its installer (in Program Files) and you sign in with an administrator account." />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Temperature unit" Style="{StaticResource CardTitle}" />
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,6,0,12"
+                               Text="Used for every temperature Udjat shows and for the limits on the Alerts tab. Changing it converts your limits, so they mean the same as before." />
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Style="{StaticResource SubTab}" Content="Celsius (°C)"
+                                     IsChecked="{Binding TemperatureUnit, Mode=TwoWay, Converter={StaticResource EnumIs}, ConverterParameter=Celsius}" />
+                        <RadioButton Style="{StaticResource SubTab}" Content="Fahrenheit (°F)"
+                                     IsChecked="{Binding TemperatureUnit, Mode=TwoWay, Converter={StaticResource EnumIs}, ConverterParameter=Fahrenheit}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="CPU temperature" Style="{StaticResource CardTitle}" />
+                    <TextBlock Text="{Binding CpuStatus}" Style="{StaticResource Hint}" Margin="0,6,0,0" />
+                    <Button Content="Get the free PawnIO driver" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" Margin="0,12,0,0"
+                            Visibility="{Binding CpuDriverMissing, Converter={StaticResource BoolToVis}}"
+                            Command="{x:Static s:SettingsCommands.OpenPawnIo}" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="Files" Style="{StaticResource CardTitle}" />
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,6,0,12"
+                               Text="The alert log lists what Udjat warned you about, and what it closed. Your passwords are not in these files." />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Open the alert log" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0"
+                                Command="{x:Static s:SettingsCommands.OpenLog}" />
+                        <Button Content="Open the settings folder" Style="{StaticResource SecondaryButton}"
+                                Command="{x:Static s:SettingsCommands.OpenFolder}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="About" Style="{StaticResource CardTitle}" />
+                    <TextBlock Style="{StaticResource Hint}" Margin="0,6,0,0">
+                        <Run Text="Udjat" /> <Run Text="{Binding Version, Mode=OneWay}" /> <Run Text="· free and open source, MIT license." />
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
