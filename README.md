@@ -15,23 +15,23 @@ Settings page (dark and light), Windows notification, sound, email and Telegram 
 The installer is on the [Releases page](https://github.com/Salah-Elsayed404/Udjat/releases); you can also build it yourself (see below).
 
 ## The story
-I run local models heavily, and my PC often stays on while I'm not sitting in front of it.
+I run local models heavily, and my PC often stays on while I'm not sitting in front of it.  
 What worried me wasn't the model itself, but my machine: what if the temperature went above normal and the resources were being consumed excessively without me noticing?
 
-I looked for a program that monitors the temperatures of the components and alerts me if things get out of control.
-What I found needed a technical person, or several programs wired together to do the job.
+I looked for a program that monitors the temperatures of the components and alerts me if things get out of control.  
+What I found needed a technical person, or several programs wired together to do the job.  
 So I decided to build it myself.
 
-The first version was built with vibe coding with Claude Code in about 4 hours.
-It monitors the temperature and the resource usage, and at a certain level it sends an alert.
-And if it reaches a critical level, it sends you an email.
-And if it stays in that critical state for the period you set, the program closes the task that's consuming the resources by itself.
+The first version was built with vibe coding with Claude Code in about 4 hours.  
+It monitors the temperature and the resource usage, and at a certain level it sends an alert.  
+And if it reaches a critical level, it sends you an email.  
+And if it stays in that critical state for the period you set, the program closes the task that's consuming the resources by itself.  
 You turn this feature on yourself, and it only closes the programs on a list that you choose.
 
-The whole program was built the same way, until it became a complete app: a tray icon, a dashboard with numbers and charts, and alerts by notification, sound, email and Telegram.
+The whole program was built the same way, until it became a complete app: a tray icon, a dashboard with numbers and charts, and alerts by notification, sound, email and Telegram.  
 And my genius friend Ramy Hassan helped me test the security parts and the protection of sensitive information, like the email password and the Telegram token.
 
-*It's called Udjat, the ancient Egyptian name of the Eye of Horus, a symbol of protection and watchfulness.
+*It's called Udjat, the ancient Egyptian name of the Eye of Horus, a symbol of protection and watchfulness.  
 The idea is to have something that keeps watch over my computer while I'm not there.*
 
 Currently available on Windows, and tested so far on two PCs with NVIDIA graphics cards. AMD and Intel cards still need people to try them.
