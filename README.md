@@ -22,7 +22,7 @@ I looked for a program that monitors the temperatures of the components and aler
 What I found needed a technical person, or several programs wired together to do the job.  
 So I decided to build it myself.
 
-The first version was built with vibe coding with Claude Code in about 4 hours.  
+The first version was built with vibe coding with Claude Code.  
 It monitors the temperature and the resource usage, and at a certain level it sends an alert.  
 And if it reaches a critical level, it sends you an email.  
 And if it stays in that critical state for the period you set, the program closes the task that's consuming the resources by itself.  
