@@ -28,8 +28,7 @@ repository, was built this way, step by step: a tray icon, a dashboard, alerts b
 an installer, and written decisions, tests and a security review along the way. My friend Ramy Hassan helped me test the security
 parts, including how sensitive information such as the email password and the Telegram token is stored and protected.
 
-Udjat is the ancient Egyptian name of the Eye of Horus, a symbol of protection and watchfulness. That is the whole idea: something
-that keeps watch over my computer while I am not there.
+### Udjat is the ancient Egyptian name of the Eye of Horus, a symbol of protection and watchfulness. That is the whole idea: something that keeps watch over my computer while I am not there.
 
 ## Why Udjat
 Most hardware monitors show hundreds of sensors. Udjat shows only the essentials
