@@ -8,7 +8,7 @@ hardware gets into trouble.
 
 **Status:** early development. The app runs: a tray icon, a window with an Overview, a Fans page and a
 Settings page (dark and light), Windows notification, sound, email and Telegram alerts, and auto-protect.
-There is no download yet; for now you build the installer yourself (see below).
+The installer is on the [Releases page](https://github.com/Salah-Elsayed404/Udjat/releases); you can also build it yourself (see below).
 
 ## The story
 I started running local AI models heavily, and my PC often kept working while I was away from it. What worried me was not the
@@ -70,7 +70,7 @@ but have not been tried yet; reports are welcome.
 Reading CPU temperature needs the [PawnIO](https://pawnio.eu) driver, which is installed separately. Udjat works without it (GPU, drives, RAM and fans); the CPU sensor simply stays disabled until PawnIO is installed.
 
 ## Installation
-There is no download yet. When there is, it will be one installer, `Udjat-Setup-<version>.exe`, from the GitHub Releases page. It installs Udjat into Program Files (there is no folder choice, on purpose: see Security) with everything it needs (you do not install .NET), adds a Start menu shortcut, and removes itself cleanly: uninstalling closes Udjat, deletes its "start with Windows" task, and asks whether to also delete your settings and saved passwords.
+Download `Udjat-Setup-<version>.exe` from the [GitHub Releases page](https://github.com/Salah-Elsayed404/Udjat/releases); the release notes carry its SHA-256. It installs Udjat into Program Files (there is no folder choice, on purpose: see Security) with everything it needs (you do not install .NET), adds a Start menu shortcut, and removes itself cleanly: uninstalling closes Udjat, deletes its "start with Windows" task, and asks whether to also delete your settings and saved passwords.
 
 The installer is not code-signed yet, so Windows SmartScreen may warn before it runs.
 
