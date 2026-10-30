@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/udjat-icon.png" width="180" alt="The Udjat icon: the Eye of Horus in gold on a lapis-blue tile">
+</p>
+
 # Udjat
 
 > A lightweight hardware watchdog for people running local AI models.
