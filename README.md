@@ -15,24 +15,26 @@ Settings page (dark and light), Windows notification, sound, email and Telegram 
 The installer is on the [Releases page](https://github.com/Salah-Elsayed404/Udjat/releases); you can also build it yourself (see below).
 
 ## The story
-I started running local AI models heavily, and my PC often kept working while I was away from it. What worried me was not the
-model but my hardware: what if the CPU, the graphics card or the drives ran far above their normal temperatures while nobody was
-watching?
+I run local models heavily, and my PC often stays on while I'm not sitting in front of it.
+What worried me wasn't the model itself, but my machine: what if the temperature went above normal and the resources were being consumed excessively without me noticing?
 
-I looked for something that would watch the temperatures and tell me when things got out of hand. The tools that could do it
-needed a technical person, or several programs glued together, before they did the job. So I decided to build it myself.
+I looked for a program that monitors the temperatures of the components and alerts me if things get out of control.
+What I found needed a technical person, or several programs wired together to do the job.
+So I decided to build it myself.
 
-The first version took about four hours of vibe coding with Claude Code. It watched the temperatures and the resource use. At a warning level it
-gave me a notification; at a critical level it sent me an email. If the PC stayed critical for a time I chose, it closed the
-task that was eating the resources, by itself. That part is something you switch on yourself, and it only closes programs from a
-list you choose.
+The first version was built with vibe coding with Claude Code in about 4 hours.
+It monitors the temperature and the resource usage, and at a certain level it sends an alert.
+And if it reaches a critical level, it sends you an email.
+And if it stays in that critical state for the period you set, the program closes the task that's consuming the resources by itself.
+You turn this feature on yourself, and it only closes the programs on a list that you choose.
 
-That small tool worked, so I kept going, still with Claude Code. The whole program, from that first version to the app in this
-repository, was built this way, step by step: a tray icon, a dashboard, alerts by Windows notification, sound, email and Telegram,
-an installer, and written decisions, tests and a security review along the way. My friend Ramy Hassan helped me test the security
-parts, including how sensitive information such as the email password and the Telegram token is stored and protected.
+The whole program was built the same way, until it became a complete app: a tray icon, a dashboard with numbers and charts, and alerts by notification, sound, email and Telegram.
+And my genius friend Ramy Hassan helped me test the security parts and the protection of sensitive information, like the email password and the Telegram token.
 
-### * Udjat is the ancient Egyptian name of the Eye of Horus, a symbol of protection and watchfulness.That is the whole idea: something that keeps watch over my computer while I am not there.
+*It's called Udjat, the ancient Egyptian name of the Eye of Horus, a symbol of protection and watchfulness.
+The idea is to have something that keeps watch over my computer while I'm not there.*
+
+Currently available on Windows, and tested so far on two PCs with NVIDIA graphics cards. AMD and Intel cards still need people to try them.
 
 ## Why Udjat
 Most hardware monitors show hundreds of sensors. Udjat shows only the essentials
