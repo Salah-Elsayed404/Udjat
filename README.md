@@ -57,7 +57,9 @@ and focuses on one job: alert you when something gets too hot.
 |---|---|
 | ![The Fans page](docs/screenshots/fans-dark.png) | ![The Alerts tab of Settings, just after saving](docs/screenshots/settings-alerts.png) |
 
-![The Channels tab of Settings, light theme](docs/screenshots/settings-channels-light.png)
+| Settings: channels (light theme) | Settings: general, with the temperature unit |
+|---|---|
+| ![The Channels tab of Settings, light theme](docs/screenshots/settings-channels-light.png) | ![The General tab of Settings](docs/screenshots/settings-general.png) |
 
 ## Platform
 Windows (v1). So far Udjat has been tried on two PCs with NVIDIA graphics cards (one of them has a GeForce RTX 3060 and an Intel Core i5-13400F).
